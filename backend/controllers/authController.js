@@ -1,14 +1,12 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-// Generate a JWT token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 }
 
-// Register User
 exports.registerUser = async (req, res) => {
     const {fullName, email, password, profileImageUrl} = req.body;
     
@@ -24,7 +22,6 @@ exports.registerUser = async (req, res) => {
             return res.status(400).json({ message: "Email already in use" });
         }
     
-        //Create the user
         const user = await User.create({
             fullName,
             email,
@@ -44,7 +41,6 @@ exports.registerUser = async (req, res) => {
     }   
 };
 
-//Login User
 exports.loginUser = async (req, res) => {
     const {email, password} = req.body;
     if (!email || !password) {
@@ -68,8 +64,6 @@ exports.loginUser = async (req, res) => {
     }
 
 };
-
-// Get User Info
 exports.getUserInfo = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select("-password");

@@ -10,7 +10,6 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
-//Middleware to handle CORS
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "*",
